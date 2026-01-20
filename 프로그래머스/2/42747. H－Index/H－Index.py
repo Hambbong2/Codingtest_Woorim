@@ -9,11 +9,33 @@ def solution(citations):
     return len(citations)
 
 
+"""
+다른 풀이: 이분탐색
+def solution(citations):
+    citations.sort()
+    n = len(citations)
+    left, right = 0, n
+
+    while left <= right:
+        mid = (left + right) // 2
+        count = sum(c >= mid for c in citations)
+        
+        if count >= mid:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return right
 
 
 
 """
 
+
+"""
+이 문제..
+* 인덱스 0번부터 시작
+* “값”이랑 “개수”를 동시에 다룸
+* “처음 실패한 순간”을 이용하는 로직
 
 1. avail_hindex 인덱스에 최대값이라 판단된 수
     2. avail_hindex 보다 작으면 애초에 검사할 필요 없음
