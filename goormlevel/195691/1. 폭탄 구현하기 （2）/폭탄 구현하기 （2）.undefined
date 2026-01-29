@@ -1,0 +1,50 @@
+import sys
+
+input = sys.stdin.readline
+N, K = map(int, input().split())
+
+# 제자리(타켓),상,하,좌,우
+dir_list_x = [0,0,0,-1,1] # 3 3 -> 2 2 -> 1 2 / 3 2
+dir_list_y = [0,-1,1,0,0]
+
+# 1. 지도맵 만들기 0, @, #
+mapping_list = []
+
+for _ in range(N):
+	mapping_list.append(list(map(str, input().split()))) # 문제는 1 2 3 4 이지만, map은 실제로 0 1 2 3으로 감. 
+
+# 2. 점수맵 만들기 - 다 문자열로 받아야해서 점수맵이 필요함
+score_map = [[0]*N for _ in range(N)]
+
+# 3. K번 입력받기
+for _ in range(K):
+	cord_y, cord_x = map(int, input().split()) # 2 2 입력받으면 실제로 map[.][.]에 넣으면 3 3으로 인식해서 -1 해야함
+	cord_y -= 1
+	cord_x -= 1
+	
+
+	# 여기서 if 문 반복해서 중복 코드하지말고 idr_list에 제자리를 넣자
+
+	for i in range(5):
+		dy = dir_list_y[i]
+		dx = dir_list_x[i]
+
+		ny = cord_y + dy # 동그라미
+		nx = cord_x + dx # 세모
+
+		if 0 <= ny <= N-1 and 0 <= nx <= N-1:
+
+			if mapping_list[ny][nx] == '@': # [동그라미][세모]
+				score_map[ny][nx] += 2
+			elif mapping_list[ny][nx] == '#':
+				continue # 실제론 계속 0점
+			elif mapping_list[ny][nx] == '0':
+				score_map[ny][nx] += 1
+
+# 4. 최대값 추출
+ans = 0
+
+for i in range(N):
+	ans = max(ans, max(score_map[i])) # 2차원 배열에서 score_map[i]이건 행만 출력.  # score_map[:][0] 은 열만
+
+print(ans)
