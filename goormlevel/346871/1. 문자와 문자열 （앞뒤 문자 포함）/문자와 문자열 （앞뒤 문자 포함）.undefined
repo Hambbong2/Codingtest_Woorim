@@ -1,0 +1,21 @@
+S = input()
+I = int(input())
+
+target_indx = -I
+N = len(S)
+
+res = []
+
+n_index = S.index(S[target_indx])
+
+# 왼쪽
+if 0 <= n_index-1 <= N-1:
+	res.append(S[n_index-1])
+
+# 오른쪽
+if 0 <= n_index+1 <= N-1:
+	res.append(S[n_index+1])
+
+
+print(''.join(res)) # join은 문자열일때만!!
+
