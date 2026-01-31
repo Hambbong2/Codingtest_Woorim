@@ -1,0 +1,23 @@
+import sys
+
+input = sys.stdin.readline
+
+N = int(input())
+score = list(map(int, input().split()))
+
+# 집합
+unmatched = set()
+
+for s in score:
+
+	if -s in unmatched:
+		unmatched.remove(-s)
+	else: # 없으면
+		unmatched.add(s)
+	
+
+
+
+print(sum(unmatched))
+
+	
