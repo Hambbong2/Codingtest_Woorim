@@ -1,0 +1,42 @@
+# 두과목다 나보다 못하는 애 찾기
+# 각 과목 당 나보다 뒷 순위인 애들 리스트로 만들기
+# 각 리스의 교집합 구하기!!
+
+import sys
+
+# input = sys.stdin.readline # 이거 무슨용도야?
+
+N = int(input())
+A_ranking = list(map(int, input().split()))
+B_ranking = list(map(int, input().split()))
+
+A_loser_ranking = []
+B_loser_ranking = []
+res = []
+
+
+for i in range(N):
+	A_cnt_ranking = A_ranking[i]
+	B_cnt_ranking = B_ranking[i]
+
+	A_loser_ranking = [] # 초기화
+	B_loser_ranking = [] # 초기화
+	
+	for j in range(N):
+		
+		if A_cnt_ranking < A_ranking[j]: 
+			A_loser_ranking.append(j) # [7,10,9,5,4,8,6] -> [2,3,5,6,7,8,9]
+
+	
+		if B_cnt_ranking < B_ranking[j]: 
+			B_loser_ranking.append(j) # [5,4,10,8,7,6,2,9,3] -> [8,10,3,2,6,7,5,9,2]
+
+	inter_list = set(A_loser_ranking) & set(B_loser_ranking)
+
+	if inter_list:
+		res.append(len(inter_list))
+	else:
+		res.append(0)
+
+print(*res)
+

@@ -1,0 +1,84 @@
+import sys
+
+input = sys.stdin.readline # 이거 하면 뭔지
+
+N = int(input())
+start_goorm_cord = list(map(int, input().split()))
+start_player_cord = list(map(int, input().split()))
+dir_x = [-1,1,0,0] # 상하좌우
+dir_y = [0,0,-1,1]
+
+
+"""
+1. 원래 격자무늬 보드판, 구름이의 방문 판, 플레어이어의 방문 판 만들기 + 구름이와 플레이어의 count 변수도 각각 2개 만든다
+2. 구름이의 반복문을 돌리며 다시 방문할 때까지 진행한다.
+3. 플레이어의 반복문을 돌리면 다시 방문할 때까지 진행한다.
+4. count 중 가장 큰 것을 출력한다
+"""
+
+#1. 격자 무늬 보드판 ~ count 변수 만들기
+board_map = []
+
+for _ in range(N):
+	row = []
+	for s in input().split():
+		row.append((int(s[:-1]), s[-1])) # 미리 바꾸어두었다.
+	board_map.append(row)
+
+visited_groom = [[0]*N for _ in range(N)]
+visited_player = [[0]*N for _ in range(N)]
+count_groom = 1
+count_player = 1
+
+def play_board(start_cord, count_who, visited_who):
+	flag = True
+	cnt_x = start_cord[0] - 1
+	cnt_y = start_cord[1] - 1
+
+	visited_who[cnt_x][cnt_y] = 1
+	
+	while flag:
+		# 항상 여기서 cnt_x, cnt_y 
+
+		count, command = board_map[cnt_x][cnt_y]
+		
+		if command == 'U': dir_index = 0
+		elif command == 'D': dir_index = 1
+		elif command == 'L': dir_index = 2
+		elif command == 'R': dir_index = 3
+
+		for _ in range(count):
+			# 항상 nx, ny 초기화 시켜주는거 잊지 않기
+			nx = (cnt_x + dir_x[dir_index]) % N
+			ny = (cnt_y + dir_y[dir_index]) % N
+			
+			if visited_who[nx][ny] == 0: # 방문을 안했다면
+				visited_who[nx][ny] = 1
+				count_who += 1
+
+				cnt_x = nx
+				cnt_y = ny
+
+			else: # 방문을 이미 했다면
+				flag = False
+				break
+
+	
+	return count_who
+
+
+
+# 2. 반복문
+count_groom = play_board(start_goorm_cord, count_groom, visited_groom)
+count_player = play_board(start_player_cord, count_player, visited_player)
+
+# print(visited_groom)
+
+# print(visited_player)
+
+if count_groom > count_player:
+	print(f"goorm {count_groom}")
+else:
+	print(f"player {count_player}")
+
+

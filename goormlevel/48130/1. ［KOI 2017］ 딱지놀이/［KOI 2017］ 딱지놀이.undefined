@@ -1,0 +1,43 @@
+import sys
+
+input = sys.stdin.readline
+N = int(input())
+res = []
+
+# 딕셔너리 초기화 및 만들기
+def make_dict(input_who):
+	
+	dict_counts = {
+		4:0,
+		3:0,
+		2:0,
+		1:0
+	}
+
+	for shape in input_who[1:]:
+		dict_counts[shape] += 1
+
+	return dict_counts
+	
+
+for _ in range(N):
+	input_A = list(map(int, input().split()))
+	input_B = list(map(int, input().split()))
+
+	dict_A = make_dict(input_A)
+	dict_B = make_dict(input_B)
+
+	flag = 'D' # defalut is tie
+	for i in range(4,0,-1):
+		if dict_A[i] > dict_B[i]:
+				flag = 'A'
+				break
+		elif dict_A[i] < dict_B[i]:
+				flag = 'B'
+				break
+
+	res.append(flag)
+
+# 결과 출력
+print(*res, sep='\n')
+	
