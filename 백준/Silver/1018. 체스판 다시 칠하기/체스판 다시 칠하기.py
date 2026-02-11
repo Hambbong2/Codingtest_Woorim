@@ -6,8 +6,6 @@ N, M = map(int, input().split())
 """
 8*8 체스판에는 32개의 흰색과 32개의 검은색을 둘 수 있다.
 """
-W_cnt = 0
-B_cnt = 0
 
 board = []
 for _ in range(N):
@@ -15,8 +13,6 @@ for _ in range(N):
     board.append(temp)    
 
 
-need_another_B = float('inf')
-need_another_W = float('inf')
 final_min = float('inf')
 
 for i in range(N-8+1):
