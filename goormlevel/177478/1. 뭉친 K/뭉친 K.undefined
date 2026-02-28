@@ -1,0 +1,33 @@
+import sys
+from collections import deque
+
+def solve():
+    # 1. 입력 받기
+    input = sys.stdin.read().split()
+    if not input:
+        return
+    
+    N = int(input[0])
+    # x, y 좌표 (1-indexed를 0-indexed로 변환)
+    target_x, target_y = int(input[1]) - 1, int(input[2]) - 1
+    
+    grid = []
+    idx = 3
+    for i in range(N):
+        grid.append(list(map(int, input[idx : idx + N])))
+        idx += N
+        
+    # 2. 기준 값 K 설정
+    K = grid[target_x][target_y]
+    
+    visited = [[False] * N for _ in range(N)]
+    max_group_size = 0
+    
+    # 상하좌우 이동용
+    dx = [-1, 1, 0, 0]
+    dy = [0, 0, -1, 1]
+    
+    # 3. 전체 격자 순회
+    for r in range(N):
+        for c in range(N):
+            # 값이 K이고 방문하지 않은 곳 발견 시 BFS 시작

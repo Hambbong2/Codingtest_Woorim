@@ -1,0 +1,36 @@
+"""
+평행선 검증:
+- 결정된 기울기 m을 가지고 첫 번째 점을 지나는 직선 L1을 만듭니다.
+- 모든 점을 순회하며 L1 위에 있지 않은 점들을 따로 모읍니다.
+- 모인 점들이 모두 기울기 m인 또 다른 하나의 직선 L2 위에 있는지 확인합니다.
+"""
+
+import sys
+
+input = sys.stdin.readline
+T = int(input())
+
+
+for _ in range(T):
+	N = int(input())
+	y_list = list(map(int, input().split()))
+
+	points = []
+	for i in range(len(y_list)):
+		points.append((i+1,y_list[i]))
+
+	# # (중요!)
+	# if N <= 2: # 이게 없었다면?
+	#     print("Yes")
+ #      continue
+
+	def check(p1, p2):
+
+		#dx, dy
+		dx = p1[0] - p2[0]
+		dy = p1[1] - p2[1]
+
+		# 정해진 기울기 m에 해당 안되는 것들
+		others = []
+
+		# (중요!) 여기가 주어진 기울기 m에 대하여 다른 모든 점들을 비교. -> 그니까, 두 점은 이어졌는데.. 어라 다른 점들도 검사해봐야겠다. 그럼 1. 주어진 기울기 위에 있거나 또는 2. 얘네 끼리 기울기 m으로 같은 선에 있는지 봐야겠다. 이 두가지 경우가 아니라면 평행 아님!
