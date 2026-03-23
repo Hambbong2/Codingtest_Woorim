@@ -29,7 +29,7 @@ def bfs(v, sec): # 가장 먼저 간 곳이 최단거리를 보장해보자. 원
             queue.appendleft((next_loc, cur_sec))
         
         for next_loc in [cur_loc+1, cur_loc-1]:
-            if 0 <= next_loc < MAX and (visited[next_loc] == -1 or visited[next_loc] > cur_sec+1):
+            if 0 <= next_loc < MAX and visited[next_loc] == -1:
                 visited[next_loc] = cur_sec + 1
                 queue.append((next_loc, cur_sec+1))
                 
